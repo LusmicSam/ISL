@@ -1,13 +1,15 @@
+# Author: Shivam
+# Indian Sign Language Detection using Mediapipe + Keras
 import cv2
 import mediapipe as mp
 import copy
 import itertools
-from tensorflow import keras
 import numpy as np
 import pandas as pd
 import string
 
 # load the saved model from file
+import keras
 model = keras.models.load_model("model.h5")
 
 mp_drawing = mp.solutions.drawing_utils
