@@ -1,83 +1,76 @@
-# Author: Shivam
+# Indian Sign Language (ISL) Detection 🤟
 
-## Indian Sign Language Detection using Mediapipe
+This project aims to detect and recognize Indian Sign Language (ISL) gestures in real-time or from images using the Mediapipe library and a custom-trained Keras model.
 
-This project is aimed at detecting and recognizing Indian Sign Language (ISL) gestures using the Mediapipe library. The project is implemented in Python.
 ![All gestures covered by project](images/allGestures.png)
 
-### Requirements
+## 🌟 Features
+- **Real-time Detection:** Detects ISL gestures using the webcam.
+- **Image Upload:** Upload an image to identify the hand signs.
+- **Streamlit Web App:** Easily deployable via Streamlit Community Cloud with a clean and interactive interface.
+- **High Accuracy:** Utilizes Mediapipe for robust hand landmark detection and a Neural Network (Keras) for gesture classification.
 
-To run this project, you will need the following dependencies:
+## 🚀 Live Demo
+*(Insert your Streamlit app link here when deployed)*
 
-- Python 3.6 or higher
-- Mediapipe library
-- OpenCV library
-- Numpy library
+## 🛠️ Requirements & Installation
 
-### Installation
-
-1. Install Python 3.6 or higher on your system.
-2. Install the Mediapipe library using the following command:
-
-   ```
-   pip install mediapipe
-   ```
-
-3. Install the OpenCV library using the following command:
-
-   ```
-   pip install opencv-python
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/LusmicSam/ISL.git
+   cd ISL
    ```
 
-4. Install the Numpy library using the following command:
-
-   ```
-   pip install numpy
-   ```
-
-### Usage
-
-1. Clone the repository to your local machine.
-
-2. Open the command prompt and navigate to the cloned directory.
-
-3. Run the following command to start the program:
-
-   ```
-   python isl_detection.py
+2. Install the necessary dependencies:
+   ```bash
+   pip install -r requirements.txt
    ```
 
-4. The program will start and display the video stream from the webcam.
+## 🎮 Usage
 
-5. To exit the program, press the 'q' key.
+### 1. Web App (Streamlit)
+To run the Streamlit web interface locally:
+```bash
+streamlit run app.py
+```
+This will open a local web server (usually at `http://localhost:8501`) where you can:
+- **Take a picture** with your camera to detect signs.
+- **Upload an image** to process existing photos.
 
-### How it works
+### 2. Local Real-Time Script
+To run the standard OpenCV webcam script (opens a separate window):
+```bash
+python isl_detection.py
+```
+*Press `ESC` to exit the webcam window.*
 
-The program uses the Mediapipe library to detect landmarks on the hand and fingers of the user in real-time. These landmarks are then fed into a feedforward neural network (FNN) that was trained on an Indian Sign Language (ISL) dataset from Kaggle. The FNN predicts the class of the hand gesture based on the detected landmarks.
+## 🧠 How it works
 
-During execution, the program uses the webcam to capture video frames, applies the Mediapipe hand detection model to detect the hand in each frame, and extracts the hand landmarks. The extracted landmarks are then passed to the classification model, which predicts the class of the hand gesture. The predicted class is displayed on the video stream in real-time.
+1. **Hand Tracking:** The program uses the Mediapipe library to detect 21 3D landmarks on the hand and fingers.
+2. **Preprocessing:** Coordinates are normalized and made relative to the wrist to ensure distance invariance.
+3. **Classification:** These processed landmarks are fed into a Keras model (`model.h5`) trained on an [ISL Kaggle dataset](https://www.kaggle.com/datasets/prathumarikeri/indian-sign-language-isl).
+4. **Prediction:** The model outputs the predicted gesture (A-Z, 1-9), which is then drawn onto the image or live feed.
 
 ![Process image](images/process.png)
 
-## File Descriptions
+## 📁 File Structure
 
-- `isl_detection.py`: This file is the main python file for real-time ISL detection.
-- `dataset_keypoint_generation.py`: This file converts [ISL kaggle image dataset](https://www.kaggle.com/datasets/prathumarikeri/indian-sign-language-isl) to 42 landmarks.
-- `keypoint.csv`: This file contains the 42 landmarks for all images.
-- `ISL_classifier.ipynb`: The notebook is used to create a classifier model to classify the hand gestures.
-- `model.h5`: This is the classifier model.
+- `app.py`: Streamlit web application.
+- `isl_detection.py`: Python script for real-time OpenCV webcam detection.
+- `dataset_keypoint_generation.py`: Script to convert the ISL dataset images into 42 (x,y) landmark coordinates.
+- `keypoint.csv`: Extracted 42 landmarks for all images in the dataset.
+- `ISL_classifier.ipynb`: Jupyter notebook used to train the Keras classification model.
+- `model.h5`: The trained Keras gesture classifier model.
+- `requirements.txt`: Python dependencies required to run the project.
 
-### Examples
+## 📸 Examples
 ![example image 1](images/example1.png)
 ![example image 2](images/example2.png)
 
-### Future Improvements
+## 🔮 Future Improvements
+- Expand the dataset to include more examples and variations.
+- Support dynamic gestures (words/phrases instead of just static letters).
+- Text-to-speech functionality to narrate the detected signs.
 
-The following improvements can be made to the project:
-
-- Expand the dataset to include more examples of each ISL gesture to improve the accuracy of the classification model.
-- Implement a more sophisticated model architecture, such as a convolutional neural network (CNN), to improve the accuracy of the classification model.
-- Add support for more ISL gestures.
-- Implement a feature to convert the recognized gestures into text or speech.
-- Make the program more user-friendly by adding a GUI.
-
+---
+**Author:** Shivam
